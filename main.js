@@ -110,7 +110,7 @@ function animate() {
     mixer.update(clock.getDelta());
   }
 
-  const animationId = requestAnimationFrame(animate);
+  requestAnimationFrame(animate);
 
   renderer.render(scene, camera);
 }
