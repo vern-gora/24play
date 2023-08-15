@@ -25,7 +25,6 @@ const controls = new OrbitControls(camera, renderer.domElement);
 let loader = new GLTFLoader();
 
 let mixer;
-let stickmanModel;
 
 loader.load(
   "./threejs_tz/Stickman.glb",
