@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
@@ -23,13 +23,31 @@ let loader = new GLTFLoader();
 let mixer;
 
 loader.load(
+  "./threejs_tz/TrackFloor.glb",
+  function (gltf) {
+    let trackFloor = gltf.scene;
+    trackFloor.traverse(function (node) {
+      if (node.isMesh) {
+        node.receiveShadow = true;
+      }
+    });
+    trackFloor.position.z = 2;
+    trackFloor.scale.z = 5;
+    scene.add(trackFloor);
+  },
+  undefined,
+  function (error) {
+    console.error(error);
+  }
+);
+
+loader.load(
   "./threejs_tz/Stickman.glb",
   function (gltf) {
     let stickmanModel = gltf.scene;
     stickmanModel.traverse(function (node) {
       if (node.isMesh) {
         node.castShadow = true;
-        node.receiveShadow = true;
       }
     });
 
@@ -70,17 +88,20 @@ loader.load(
 );
 
 loader.load(
-  "./threejs_tz/TrackFloor.glb",
+  "./threejs_tz/Brain.glb",
   function (gltf) {
-    let trackFloor = gltf.scene;
-    trackFloor.traverse(function (node) {
+    let brain = gltf.scene;
+    brain.traverse(function (node) {
       if (node.isMesh) {
         node.receiveShadow = true;
       }
     });
-    trackFloor.position.z = 2;
-    trackFloor.scale.z = 5;
-    scene.add(trackFloor);
+
+    brain.position.set(3.5, 2, -7);
+
+    brain.scale.set(2, 2, 2);
+
+    scene.add(brain);
   },
   undefined,
   function (error) {
